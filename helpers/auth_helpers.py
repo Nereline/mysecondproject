@@ -9,7 +9,7 @@ def simple_auth_check():
 
     #print(resp.text)
     print(resp.status_code == requests.codes.ok)
-    assert resp.status_code == 200
+    assert resp.status_code == 200, 'Not 200 {}'.format(resp.status_code)
 
     json = resp.json()
     result = json['Result']
