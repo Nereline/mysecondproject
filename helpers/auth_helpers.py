@@ -7,9 +7,7 @@ def login_init(session):
     resp = requests.post('http://testbankok.akbars.ru/AkbarsOnlineAuth/LoginInit',
                   data={'login': data.users.protas['login'], 'password': data.users.protas['password']})
 
-    print(resp.status_code == requests.codes.ok)
     assert resp.status_code == 200, 'Not 200 {}'.format(resp.status_code)
-
     json = resp.json()
     result = json['Result']
     session['operationid'] = result['AkbarsLoginOperationId']
