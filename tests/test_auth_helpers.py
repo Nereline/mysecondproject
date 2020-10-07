@@ -1,22 +1,18 @@
 import helpers.auth_helpers
 
 
-print('도와주세요')
-
-
 def test_auth_helper():
+    session = {
+        'devicetoken': '18FCA794-4243-4AF2-8001-9F27CD8376FE',
+        'operationid': '',
+        'refreshtoken': '',
+        'sessiontoken': ''
+    }
 
-    run = helpers.auth_helpers.login_init()
-    assert run, 'LoginInit failed =('
-
-    run = helpers.auth_helpers.login_confirm()
-    assert run, 'LoginConfirm failed =('
-
-    run = helpers.auth_helpers.set_pin()
-    assert run, 'SetPin failed =('
-
-    run = helpers.auth_helpers.create_session()
-    assert run, 'CreateSession failed =('
+    helpers.auth_helpers.login_init(session)
+    helpers.auth_helpers.login_confirm(session)
+    helpers.auth_helpers.set_pin(session)
+    assert helpers.auth_helpers.create_session(session), 'CreateSession failed'
 
 
 

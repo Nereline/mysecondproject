@@ -5,9 +5,9 @@ protas = {'name': 'protas',
           }
 
 
-session = {
-    'devicetoken': '18FCA794-4243-4AF2-8001-9F27CD8376FE',
-    'operationid': '',
-    'refreshtoken': '',
-    'sessiontoken': ''
-}
+#session = {
+#    'devicetoken': '18FCA794-4243-4AF2-8001-9F27CD8376FE',
+#    'operationid': '',
+#    'refreshtoken': '',
+#    'sessiontoken': ''
+#}
