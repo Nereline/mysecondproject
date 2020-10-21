@@ -1,4 +1,5 @@
 import helpers.auth_helpers
+import data.users
 
 
 def test_auth_helper():
@@ -7,16 +8,20 @@ def test_auth_helper():
         'operationid': '',
         'refreshtoken': '',
         'sessiontoken': '',
+        'otp': '',
+        'needotp': '',
+        'testuser': data.users.protas,
         'host': 'http://testbankok.akbars.ru/'
     }
 
     helpers.auth_helpers.login_init(session)
-    helpers.auth_helpers.sendotp(session)
-    helpers.auth_helpers.getotp(session)
-    helpers.auth_helpers.login_confirm(session)
-    helpers.auth_helpers.set_pin(session)
-    assert helpers.auth_helpers.create_session(session), 'CreateSession failed'
-
-
-
-
+    if session['needotp'] is True:
+        helpers.auth_helpers.send_otp(session)
+        helpers.auth_helpers.get_otp(session)
+        helpers.auth_helpers.login_confirm(session)
+        helpers.auth_helpers.set_pin(session)
+        helpers.auth_helpers.create_session(session)
+    else:
+        helpers.auth_helpers.login_confirm(session)
+        helpers.auth_helpers.set_pin(session)
+        helpers.auth_helpers.create_session(session)

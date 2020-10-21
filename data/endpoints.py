@@ -3,4 +3,4 @@ url = {'loginInit': 'AkbarsOnlineAuth/LoginInit',
        'setPin': 'auth/setPin',
        'createSession': 'auth/createsession',
        'sendOtp': 'AkbarsOnlineAuth/SendOtp',
-       'zagadki': r'6f1f60ba/default/GetConfirmation?operationToken=IdentityAbo%'}
+       'zagadki': '6f1f60ba/default/GetConfirmation'}
