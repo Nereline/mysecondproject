@@ -10,15 +10,11 @@ def test_auth_helper():
         'sessiontoken': '',
         'otp': '',
         'needotp': '',
-        'testuser': users.reimond,
+        'testuser': users.protas,
         'host': 'http://testbankok.akbars.ru/'
     }
 
     auth_helpers.login_init(session)
-    if session['needotp'] is True:
-        auth_helpers.send_otp(session)
-        auth_helpers.get_otp(session)
-
     auth_helpers.login_confirm(session)
     auth_helpers.set_pin(session)
     auth_helpers.create_session(session)

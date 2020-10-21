@@ -12,6 +12,9 @@ def login_init(session):
 
     session['operationid'] = resp['Result']['AkbarsLoginOperationId']
     session['needotp'] = resp['Result']['NeedOtp']
+    if session['needotp'] is True:
+        send_otp(session)
+        get_otp(session)
     return resp
 
 
