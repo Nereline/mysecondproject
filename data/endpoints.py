@@ -3,4 +3,5 @@ url = {'loginInit': 'AkbarsOnlineAuth/LoginInit',
        'setPin': 'auth/setPin',
        'createSession': 'auth/createsession',
        'sendOtp': 'AkbarsOnlineAuth/SendOtp',
-       'zagadki': '6f1f60ba/default/GetConfirmation'}
+       'zagadki': '6f1f60ba/default/GetConfirmation',
+       'zagadki_web': 'https://testbankok.akbars.ru/6f1f60ba?us=bankoktest'}

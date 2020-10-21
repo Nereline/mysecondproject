@@ -2,6 +2,8 @@ allure-pytest==2.8.6
 allure-python-commons==2.8.6
 appdirs==1.4.3
 attrs==18.2.0
+beautifulsoup4==4.9.3
+bs4==0.0.1
 cached-property==1.5.1
 certifi==2018.11.29
 chardet==3.0.4
@@ -15,7 +17,7 @@ importlib-metadata==2.0.0
 isodate==0.6.0
 itsdangerous==1.1.0
 Jinja2==2.10
-lxml==4.3.1
+lxml==4.6.1
 MarkupSafe==1.1.0
 more-itertools==6.0.0
 packaging==20.4
@@ -37,6 +39,7 @@ restnavigator==1.0.1
 semver==2.8.1
 simplejson==3.16.0
 six==1.12.0
+soupsieve==2.0.1
 Unidecode==1.0.23
 uritemplate==3.0.0
 urllib3==1.24.1
