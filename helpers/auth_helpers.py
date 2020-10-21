@@ -5,7 +5,8 @@ import models.http
 def login_init(session):
 
     resp = models.http.parametrized_post(host=session['host'], endpoint=data.endpoints.url['loginInit'],
-                                    data={'login': session['testuser']['login'], 'password': session['testuser']['password']})
+                                         data={'login': session['testuser']['login'],
+                                               'password': session['testuser']['password']})
 
     session['operationid'] = resp['Result']['AkbarsLoginOperationId']
     session['needotp'] = resp['Result']['NeedOtp']
@@ -50,4 +51,3 @@ def get_otp(session):
                                         url_payload={"operationToken": "IdentityAbo:" + session['operationid']})
     session['otp'] = resp['code']
     return resp
-
