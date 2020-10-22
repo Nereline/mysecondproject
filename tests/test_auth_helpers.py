@@ -10,7 +10,7 @@ def test_auth_helper():
         'sessiontoken': '',
         'otp': '',
         'needotp': '',
-        'testuser': users.protas,
+        'testuser': users.reimond,
         'host': 'http://testbankok.akbars.ru/'
     }
 
