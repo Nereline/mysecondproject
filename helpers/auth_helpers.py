@@ -74,27 +74,25 @@ class Session(object):
         self.last_auth_time = None
         self.session_key = None
         self.current_user = current_user
-
-    session = {
-        'devicetoken': '18FCA794-4243-4AF2-8001-9F27CD8376FE',
-        'operationid': '',
-        'refreshtoken': '',
-        'sessiontoken': '',
-        'exptime': '',
-        'otp': '',
-        'needotp': '',
-        'testuser': '',
-        'host': 'http://testbankok.akbars.ru/'
-    }
+        self.session = {
+            'devicetoken': '18FCA794-4243-4AF2-8001-9F27CD8376FE',
+            'operationid': '',
+            'refreshtoken': '',
+            'sessiontoken': '',
+            'exptime': '',
+            'otp': '',
+            'needotp': '',
+            'testuser': current_user,
+            'host': 'http://testbankok.akbars.ru/'
+        }
 
     def create_session(self):
-        self.session['testuser'] = self.current_user
         login_init(self.session)
         login_confirm(self.session)
         set_pin(self.session)
         create_session(self.session)
         self.last_auth_time = self.session['exptime']
         self.session_key = self.session['sessiontoken']
-        return True
+        return self.session_key
 
     pass
