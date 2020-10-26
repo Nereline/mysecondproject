@@ -3,18 +3,9 @@ import data.users as users
 
 
 def test_auth_helper():
-    session = {
-        'devicetoken': '18FCA794-4243-4AF2-8001-9F27CD8376FE',
-        'operationid': '',
-        'refreshtoken': '',
-        'sessiontoken': '',
-        'otp': '',
-        'needotp': '',
-        'testuser': users.reimond,
-        'host': 'http://testbankok.akbars.ru/'
-    }
 
-    auth_helpers.login_init(session)
-    auth_helpers.login_confirm(session)
-    auth_helpers.set_pin(session)
-    auth_helpers.create_session(session)
+    session = auth_helpers.Session(users.reimond)
+    print(session.current_user)
+    print(session.session_key)
+    session.create_session()
+    print(session.session_key)

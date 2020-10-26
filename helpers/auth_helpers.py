@@ -3,7 +3,6 @@ import models.http as http
 import requests
 import bs4
 import re
-import lxml
 
 
 def login_init(session):
@@ -42,6 +41,7 @@ def create_session(session):
                                         'Pin': session['testuser']['pin']})
 
     session['sessiontoken'] = resp['Result']['SessionToken']
+    session['exptime'] = resp['Result']['ExpirationTime']
     return resp
 
 
@@ -67,3 +67,34 @@ def get_otp_from_web(session):
     rez = re.compile(r'\d+')
     session['otp'] = rez.findall(result)
     return True
+
+
+class Session(object):
+    def __init__(self, current_user):
+        self.last_auth_time = None
+        self.session_key = None
+        self.current_user = current_user
+
+    session = {
+        'devicetoken': '18FCA794-4243-4AF2-8001-9F27CD8376FE',
+        'operationid': '',
+        'refreshtoken': '',
+        'sessiontoken': '',
+        'exptime': '',
+        'otp': '',
+        'needotp': '',
+        'testuser': '',
+        'host': 'http://testbankok.akbars.ru/'
+    }
+
+    def create_session(self):
+        self.session['testuser'] = self.current_user
+        login_init(self.session)
+        login_confirm(self.session)
+        set_pin(self.session)
+        create_session(self.session)
+        self.last_auth_time = self.session['exptime']
+        self.session_key = self.session['sessiontoken']
+        return True
+
+    pass
