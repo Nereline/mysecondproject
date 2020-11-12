@@ -3,6 +3,7 @@ import models.http as http
 import requests
 import bs4
 import re
+from datetime import timedelta, datetime
 
 
 def login_init(session):
@@ -14,7 +15,7 @@ def login_init(session):
     session['needotp'] = resp['Result']['NeedOtp']
     if session['needotp'] is True:
         send_otp(session)
-        get_otp_from_web(session)
+        get_otp(session)
     return resp
 
 
@@ -24,6 +25,7 @@ def login_confirm(session):
                                         'DeviceToken': session['devicetoken'], 'otpCode': session['otp']})
 
     session['refreshtoken'] = resp['Result']['RefreshToken']
+    # session['pushtoken'] = resp['Result']['IdentityAccessToken']
     return resp
 
 
@@ -41,7 +43,7 @@ def create_session(session):
                                         'Pin': session['testuser']['pin']})
 
     session['sessiontoken'] = resp['Result']['SessionToken']
-    session['exptime'] = resp['Result']['ExpirationTime']
+    session['optime'] = datetime.now()
     return resp
 
 
@@ -69,7 +71,26 @@ def get_otp_from_web(session):
     return True
 
 
-class Session(object):
+def logout(session):
+    resp = http.parametrized_post(host=session['host'], endpoint=endpoints.url['logout'],
+                                  data='{"SessionToken":"' + session['sessiontoken'] + '"}',
+                                  header_payload={'DeviceToken': session['devicetoken'],
+                                                  'SessionToken': session['sessiontoken'],
+                                                  'Content-Type': r'application/json'})
+    session['sessiontoken'] = ''
+    return resp
+
+
+def remove_push_token(session):
+    resp = http.parametrized_post(host=session['host'], endpoint=endpoints.url['removePushToken'],
+                                  data='{"PushToken":"' + session['pushtoken'] +
+                                       '","DeviceToken":"' + session['devicetoken'] + '"}',
+                                  header_payload={'Content-Type': r'application/json'})
+    return resp
+
+
+class Session:
+
     def __init__(self, current_user):
         self.last_auth_time = None
         self.session_key = None
@@ -79,7 +100,8 @@ class Session(object):
             'operationid': '',
             'refreshtoken': '',
             'sessiontoken': '',
-            'exptime': '',
+            'optime': '',
+            'pushtoken': 'bf4f062733ed1ab3e9a0df5a5f058366320ce7bfd1dcf3a11e543f404788165a',
             'otp': '',
             'needotp': '',
             'testuser': current_user,
@@ -91,8 +113,22 @@ class Session(object):
         login_confirm(self.session)
         set_pin(self.session)
         create_session(self.session)
-        self.last_auth_time = self.session['exptime']
+        self.last_auth_time = self.session['optime']
         self.session_key = self.session['sessiontoken']
         return self.session_key
 
+    def logout(self):
+        logout(self.session)
+        remove_push_token(self.session)
+        self.session_key = None
+        return self.session_key
+
+    def check_active_auth(self):
+        if self.session_key is not None and self.last_auth_time is not None:
+            session_rec_time = timedelta(minutes=2, seconds=30)
+            now = datetime.now()
+            time_after_login = now - self.last_auth_time
+            if time_after_login > session_rec_time:
+                self.create_session()
+        return True
     pass
