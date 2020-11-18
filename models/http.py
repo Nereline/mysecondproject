@@ -1,17 +1,16 @@
 import requests
-from helpers.auth_helpers import Session
 
 
-def parametrized_get(session=Session,
-                     endpoint=None,
+def parametrized_get(endpoint=None,
                      url_payload=None,
                      header_payload=None,
                      expected_response_codes=[200],
                      host=None,
-                     timeout=60):
+                     timeout=60,
+                     with_auth=True):
     if header_payload is None:
         header_payload = {'User-Agent': 'ABOL/3.74.0-test (Android 8.0.0; samsung SM-A520F)'}
-    if session.session_key is None:
+    if with_auth is False is None:
         pass
     else:
         session.check_active_auth()
@@ -23,8 +22,7 @@ def parametrized_get(session=Session,
     return result
 
 
-def parametrized_post(session=Session,
-                      endpoint=None,
+def parametrized_post(endpoint=None,
                       url_payload=None,
                       data=None,
                       body_payload=None,  #чо-т не поняла, для чего нужно body_payload
@@ -32,10 +30,11 @@ def parametrized_post(session=Session,
                       header_payload=None,
                       expected_response_codes=[200],
                       host=None,
-                      timeout=60):
+                      timeout=60,
+                      with_auth=True):
     if header_payload is None:
         header_payload = {'User-Agent': 'ABOL/3.74.0-test (Android 8.0.0; samsung SM-A520F)'}
-    if session.session_key is None:
+    if with_auth is False:
         pass
     else:
         session.check_active_auth()

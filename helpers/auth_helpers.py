@@ -91,10 +91,10 @@ def remove_push_token(session):
 
 class Session:
 
-    def __init__(self, current_user):
+    def __init__(self, test_user):
         self.last_auth_time = None
         self.session_key = None
-        self.current_user = current_user
+        self.test_user = test_user
         self.session = {
             'devicetoken': '18FCA794-4243-4AF2-8001-9F27CD8376FE',
             'operationid': '',
@@ -104,7 +104,7 @@ class Session:
             'pushtoken': 'bf4f062733ed1ab3e9a0df5a5f058366320ce7bfd1dcf3a11e543f404788165a',
             'otp': '',
             'needotp': '',
-            'testuser': current_user,
+            'testuser': test_user,
             'host': 'http://testbankok.akbars.ru/'
         }
 
