@@ -5,5 +5,10 @@ import data.users as users
 
 @pytest.fixture(scope="session")
 def test_user():
-    user = users.reimond
+    user = users.protas
     return user
+
+
+# @pytest.fixture(scope="test")
+# def check_auth(session):
+#     session.check_active_auth()

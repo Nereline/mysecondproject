@@ -6,4 +6,6 @@ url = {'loginInit': 'AkbarsOnlineAuth/LoginInit',
        'zagadki': '6f1f60ba/default/GetConfirmation',
        'zagadki_web': '6f1f60ba?us=bankoktest',
        'logout': 'auth/logout',
-       'removePushToken': 'api/Push/RemovePushToken'}
+       'removePushToken': 'api/Push/RemovePushToken',
+       'analiticsinfo': 'api/analytics/info',
+       'depositrateinfo': 'api/deposit/rateinfo'}

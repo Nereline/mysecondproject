@@ -10,10 +10,6 @@ def parametrized_get(endpoint=None,
                      with_auth=True):
     if header_payload is None:
         header_payload = {'User-Agent': 'ABOL/3.74.0-test (Android 8.0.0; samsung SM-A520F)'}
-    if with_auth is False is None:
-        pass
-    else:
-        session.check_active_auth()
     r = requests.get(host+endpoint, params=url_payload,
                      headers=header_payload, timeout=timeout, verify=False)
     assert r.status_code in expected_response_codes, \
@@ -34,10 +30,6 @@ def parametrized_post(endpoint=None,
                       with_auth=True):
     if header_payload is None:
         header_payload = {'User-Agent': 'ABOL/3.74.0-test (Android 8.0.0; samsung SM-A520F)'}
-    if with_auth is False:
-        pass
-    else:
-        session.check_active_auth()
     r = requests.post(host+endpoint, params=url_payload, data=data,
                       headers=header_payload, timeout=timeout, files=files, verify=False)
     assert r.status_code in expected_response_codes, \
