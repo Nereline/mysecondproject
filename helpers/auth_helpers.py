@@ -39,7 +39,7 @@ def login_confirm(session):
     """
 
     resp = http.parametrized_post(host=session['host'], endpoint=endpoints.url['loginConfirm'],
-                                  data={'AkbarsOnlineLoginOperationId': session['operationid'],
+                                  body_payload={'AkbarsOnlineLoginOperationId': session['operationid'],
                                         'DeviceToken': session['devicetoken'], 'otpCode': session['otp']})
 
     session['refreshtoken'] = resp['Result']['RefreshToken']
@@ -57,7 +57,7 @@ def set_pin(session):
     """
 
     resp = http.parametrized_post(host=session['host'], endpoint=endpoints.url['setPin'],
-                                  data={'RefreshToken': session['refreshtoken'],
+                                  body_payload={'RefreshToken': session['refreshtoken'],
                                         'Pin': session['testuser']['pin'],
                                         'DeviceToken': session['devicetoken']})
     return resp
@@ -74,7 +74,7 @@ def create_session(session):
     """
 
     resp = http.parametrized_post(host=session['host'], endpoint=endpoints.url['createSession'],
-                                  data={'RefreshToken': session['refreshtoken'],
+                                  body_payload={'RefreshToken': session['refreshtoken'],
                                         'Pin': session['testuser']['pin']})
 
     session['sessiontoken'] = resp['Result']['SessionToken']
@@ -93,7 +93,7 @@ def send_otp(session):
     """
 
     resp = http.parametrized_post(host=session['host'], endpoint=endpoints.url['sendOtp'],
-                                  data='{"AkbarsOnlineLoginOperationId":"' + session['operationid'] + '"}',
+                                  body_payload={'AkbarsOnlineLoginOperationId': session['operationid']},
                                   header_payload={'Content-Type': r'application/json; charset=UTF-8'})
     return resp
 
