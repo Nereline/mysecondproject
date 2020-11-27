@@ -11,9 +11,9 @@ def login_init(session):
     Инициализация авторизации пользователя, приходит флаг для понимания, нужен ли ввод отп
     В теле передаёт логин и пароль пользователя
     :param session:
-    На вход принимает словарик с атрибутами сессии пользователя
+    На вход принимает dict с атрибутами сессии пользователя
     :return:
-    Возвращает тело респонса
+    Возвращает json с телом респонса
     """
 
     resp = http.parametrized_post(host=session['host'], endpoint=endpoints.url['loginInit'],
@@ -33,9 +33,9 @@ def login_confirm(session):
     Подтверждение
     В теле запроса передаётся operationid, devicetoken и otp если нужно
     :param session:
-    На вход принимает словарик с атрибутами сессии пользователя
+    На вход принимает dict с атрибутами сессии пользователя
     :return:
-    Возвращает тело респонса
+    Возвращает json с телом респонса
     """
 
     resp = http.parametrized_post(host=session['host'], endpoint=endpoints.url['loginConfirm'],
@@ -51,9 +51,9 @@ def set_pin(session):
     Функция для установки пин-кода "девайса"
     В теле запроса передаётся refreshtoken, devicetoken, pin
     :param session:
-    На вход принимает словарик с атрибутами сессии пользователя
+    На вход принимает dict с атрибутами сессии пользователя
     :return:
-    Возвращает тело респонса
+    Возвращает json с телом респонса
     """
 
     resp = http.parametrized_post(host=session['host'], endpoint=endpoints.url['setPin'],
@@ -68,9 +68,9 @@ def create_session(session):
     Функция для создания токена сессии
     В теле запроса передаётся refreshtoken и pin
     :param session:
-    На вход принимает словарик с атрибутами сессии пользователя
+    На вход принимает dict с атрибутами сессии пользователя
     :return:
-    Возвращает тело респонса
+    Возвращает json с телом респонса
     """
 
     resp = http.parametrized_post(host=session['host'], endpoint=endpoints.url['createSession'],
@@ -87,9 +87,9 @@ def send_otp(session):
     Функция для отправки отп
     Используется, если LoginInit вернул флаг "NeedOtp": true
     :param session:
-    На вход принимает словарик с атрибутами сессии пользователя
+    На вход принимает dict с атрибутами сессии пользователя
     :return:
-    Возвращает тело респонса
+    Возвращает json с телом респонса
     """
 
     resp = http.parametrized_post(host=session['host'], endpoint=endpoints.url['sendOtp'],
@@ -103,9 +103,9 @@ def get_otp(session):
     Функция для получения отп через апи
     Используется, если LoginInit вернул флаг "NeedOtp": true
     :param session:
-    На вход принимает словарик с атрибутами сессии пользователя
+    На вход принимает dict с атрибутами сессии пользователя
     :return:
-    Возвращает тело респонса
+    Возвращает json с телом респонса
     """
 
     resp = http.parametrized_get(host='http://testbankok.akbars.ru/', endpoint=endpoints.url['zagadki'],
@@ -119,7 +119,7 @@ def get_otp_from_web(session):
     Функция для получения отп через страницу загадок
     Используется, если LoginInit вернул флаг "NeedOtp": true
     :param session:
-    На вход принимает словарик с атрибутами сессии пользователя
+    На вход принимает dict с атрибутами сессии пользователя
     :return:
     Возвращает True
     """
@@ -138,9 +138,9 @@ def logout(session):
     Функция для выхода пользователя из АБО
     Затирает токен сессии
     :param session:
-    На вход принимает словарик с атрибутами сессии пользователя
+    На вход принимает dict с атрибутами сессии пользователя
     :return:
-    Возвращает тело респонса
+    Возвращает json с телом респонса
     """
 
     resp = http.parametrized_post(host=session['host'], endpoint=endpoints.url['logout'],
@@ -157,9 +157,9 @@ def remove_push_token(session):
     Функция для выхода пользователя из АБО
     Делает пуш токен невалидным, наверное
     :param session:
-    На вход принимает словарик с атрибутами сессии пользователя
+    На вход принимает dict с атрибутами сессии пользователя
     :return:
-    Возвращает тело респонса
+    Возвращает json с телом респонса
     """
 
     resp = http.parametrized_post(host=session['host'], endpoint=endpoints.url['removePushToken'],
@@ -172,7 +172,7 @@ def remove_push_token(session):
 class Session:
     """
     Класс Session принимает на вход тестового юзера. Используется для хранения атрибутов сесси пользователя.
-    Основное применения - логин, логаут, проверка сессии на протухание.
+    Основное применение - логин, логаут, проверка сессии на протухание.
 
     Атрибуты:
     last_auth_time - время последней авторизации
@@ -235,7 +235,7 @@ class Session:
         Метод для проверки сесии на время истечения
         Если времени после создания сессии прошло больше, чем 2,5 минут, создастся новая сессия
         :return:
-        Возвращает Тру
+        Возвращает True
         """
 
         if self.session_key is not None and self.last_auth_time is not None:

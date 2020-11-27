@@ -5,6 +5,10 @@ import data.users as users
 
 @pytest.fixture(scope="session")
 def test_user():
+    """
+    Фикстура для задания тестового пользователя
+    :return: Возврщается тестового юзера типа dict
+    """
     user = users.reimond
     return user
 
