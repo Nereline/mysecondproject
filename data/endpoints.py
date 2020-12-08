@@ -8,4 +8,8 @@ url = {'loginInit': 'AkbarsOnlineAuth/LoginInit',
        'logout': 'auth/logout',
        'removePushToken': 'api/Push/RemovePushToken',
        'analiticsinfo': 'api/analytics/info',
-       'depositrateinfo': 'api/deposit/rateinfo'}
+       'depositrateinfo': 'api/deposit/rateinfo',
+       'get_feed_v3': 'api/v3/feed',
+       'creditapplications_parameters_v3': 'api/v3/creditapplications/parameters',
+       'find_address': 'api/address/find'}
+
